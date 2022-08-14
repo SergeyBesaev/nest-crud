@@ -1,5 +1,5 @@
 import {BelongsToMany, Column, DataType, Model, Table} from 'sequelize-typescript'
-import {ResponseRole, Role} from '../roles/roles.model'
+import {Role} from '../roles/roles.model'
 import {UserRoles} from '../roles/user.roles.model'
 
 @Table({tableName: 'users'})

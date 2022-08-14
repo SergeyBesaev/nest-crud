@@ -2,12 +2,9 @@ import {BelongsToMany, Column, DataType, Model, Table} from 'sequelize-typescrip
 import {User} from '../users/users.model'
 import {UserRoles} from './user.roles.model'
 
-export interface ResponseRole {
-    name: string
-}
 
 @Table({tableName: 'roles'})
-export class Role extends Model<Role, ResponseRole> {
+export class Role extends Model<Role> {
 
     @Column({type: DataType.INTEGER, autoIncrement: true, primaryKey: true})
     id: number

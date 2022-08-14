@@ -1,10 +1,11 @@
-import crypto from 'crypto'
+import {createHash} from 'crypto'
 
 const DELIMETER = '::'
 
 export function hashPassword(password: string, salt: string): string {
     const input = `${password}${DELIMETER}${salt}`
-    const sha = crypto.createHash('sha256')
+    const sha = createHash('sha256')
     sha.update(input)
-    return sha.digest('hex')
+
+    return `${sha.digest('hex')}${DELIMETER}${salt}`
 }

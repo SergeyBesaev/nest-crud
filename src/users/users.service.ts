@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common'
+import {Injectable} from '@nestjs/common'
 import {InjectModel} from '@nestjs/sequelize'
 import {User} from './users.model'
 import {Role} from '../roles/roles.model'
@@ -26,13 +26,7 @@ export class UsersService {
     }
 
     async getUserByEmail(email: string) {
-        const user: User =  await this.userRepo.findOne({where: {email: email}, include: [{ model: Role, attributes: ['name']}]})
-
-        if (!user) {
-            throw new HttpException(`User with email ${email} not found`, HttpStatus.BAD_REQUEST)
-        }
-
-        return user
+        return await this.userRepo.findOne({where: {email: email}, include: [{model: Role, attributes: ['name']}]})
     }
 
     async update(email: string, user: User) {
