@@ -1,6 +1,9 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common'
+import {Body, Controller, Delete, Get, Param, Post, Put, UseGuards} from '@nestjs/common'
 import {UsersService} from './users.service'
 import {User} from './users.model'
+import {JwtAuthGuard} from '../auth/guards/jwt.auth.guard'
+import {Roles} from '../auth/guards/role.decorator'
+import {RoleGuard} from '../auth/guards/role.guard'
 
 @Controller('users')
 export class UsersController {
@@ -13,6 +16,8 @@ export class UsersController {
         return this.service.save(user)
     }
 
+    @Roles('Admin')
+    @UseGuards(RoleGuard)
     @Get()
     getAllUsers() {
         return this.service.getAllUsers()
@@ -32,4 +37,5 @@ export class UsersController {
     delete(@Param('email') email: string) {
         return this.service.delete(email)
     }
+
 }
